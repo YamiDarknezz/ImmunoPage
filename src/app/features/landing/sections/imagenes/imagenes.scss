@@ -1,0 +1,469 @@
+:host {
+  display: block;
+}
+
+// Variables
+$primary-color: #0132a3;
+$primary-light: #0142b8;
+$primary-dark: #012780;
+
+// Sección principal
+.section-imagenes {
+  position: relative;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
+}
+
+// Grid de imágenes
+.images-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
+  gap: 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+// Tarjeta de imagen
+.image-card {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Wrapper de imagen con efectos
+.image-wrapper {
+  position: relative;
+  margin-bottom: 2rem;
+
+  &:hover {
+    .image-container {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 80px rgba(1, 50, 163, 0.25);
+    }
+
+    .image-overlay {
+      opacity: 0;
+    }
+
+    .shine-effect {
+      left: 100%;
+    }
+
+    .image-decoration {
+      transform: rotate(2deg) scale(1.02);
+    }
+
+    .image-glow {
+      opacity: 0.4;
+    }
+
+    .particle {
+      opacity: 1;
+      animation-play-state: running;
+    }
+
+    .main-image {
+      transform: scale(1.05);
+    }
+  }
+}
+
+// Decoración de fondo
+.image-decoration {
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  right: 15px;
+  bottom: 15px;
+  background: linear-gradient(135deg, $primary-color, $primary-light);
+  border-radius: 24px;
+  opacity: 0.1;
+  z-index: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Efecto glow
+.image-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(1, 50, 163, 0.15), transparent);
+  filter: blur(60px);
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+// Contenedor principal de imagen
+.image-container {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(1, 50, 163, 0.15);
+  z-index: 1;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 3px;
+    background: linear-gradient(
+      135deg,
+      $primary-color,
+      $primary-light,
+      transparent,
+      transparent
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: 2;
+  }
+}
+
+// Imagen principal
+.main-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.loaded {
+    opacity: 1;
+  }
+}
+
+// Skeleton loader
+.image-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// Overlay oscuro
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(1, 50, 163, 0.05) 100%
+  );
+  opacity: 1;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+// Efecto de brillo
+.shine-effect {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.7s ease;
+  z-index: 2;
+  pointer-events: none;
+  transform: skewX(-20deg);
+}
+
+// Badge flotante
+.image-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 0.85)
+  );
+  backdrop-filter: blur(10px);
+  padding: 0.75rem 1.25rem;
+  border-radius: 50px;
+  box-shadow: 0 8px 24px rgba(1, 50, 163, 0.15);
+  z-index: 3;
+  border: 1px solid rgba(1, 50, 163, 0.1);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50px;
+    padding: 1px;
+    background: linear-gradient(135deg, $primary-color, transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+}
+
+.badge-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, $primary-color, $primary-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.badge-text {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: $primary-color;
+  letter-spacing: 0.02em;
+}
+
+// Partículas decorativas
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, $primary-color, $primary-light);
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+  animation-play-state: paused;
+  box-shadow: 0 0 20px rgba(1, 50, 163, 0.5);
+}
+
+.particle-1 {
+  top: 15%;
+  left: 10%;
+  animation: float-1 3s ease-in-out infinite;
+}
+
+.particle-2 {
+  top: 60%;
+  right: 15%;
+  width: 6px;
+  height: 6px;
+  animation: float-2 4s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.particle-3 {
+  bottom: 20%;
+  left: 20%;
+  width: 10px;
+  height: 10px;
+  animation: float-3 3.5s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+@keyframes float-1 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(10px, -15px) scale(1.2);
+  }
+}
+
+@keyframes float-2 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-15px, 10px) scale(1.3);
+  }
+}
+
+@keyframes float-3 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(12px, -12px) scale(1.15);
+  }
+}
+
+// Información de la imagen
+.image-info {
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.image-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  background: linear-gradient(
+    135deg,
+    $primary-dark,
+    $primary-color,
+    $primary-light
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+.image-description {
+  font-size: 1rem;
+  color: #64748b;
+  font-weight: 500;
+  line-height: 1.6;
+  margin: 0;
+}
+
+// Decoraciones de fondo
+.bg-decoration-1,
+.bg-decoration-2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+.bg-decoration-1 {
+  top: 10%;
+  right: 5%;
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(135deg, $primary-color, $primary-light);
+}
+
+.bg-decoration-2 {
+  bottom: 10%;
+  left: 5%;
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, $primary-light, $primary-dark);
+}
+
+// Patrón de fondo
+.bg-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle at 2px 2px,
+    rgba(1, 50, 163, 0.03) 1px,
+    transparent 0
+  );
+  background-size: 40px 40px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+// Responsive
+@media (max-width: 1024px) {
+  .images-grid {
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-imagenes {
+    padding: 3rem 0;
+  }
+
+  .images-grid {
+    gap: 2rem;
+  }
+
+  .image-decoration {
+    top: -10px;
+    left: -10px;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .image-badge {
+    top: 15px;
+    right: 15px;
+    padding: 0.625rem 1rem;
+    gap: 0.5rem;
+  }
+
+  .badge-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .badge-text {
+    font-size: 0.8125rem;
+  }
+
+  .particle {
+    display: none;
+  }
+
+  .image-wrapper:hover {
+    .image-container {
+      transform: translateY(-4px);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .image-badge {
+    top: 10px;
+    right: 10px;
+    padding: 0.5rem 0.875rem;
+  }
+
+  .badge-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .badge-text {
+    font-size: 0.75rem;
+  }
+}
+
+// Accesibilidad
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

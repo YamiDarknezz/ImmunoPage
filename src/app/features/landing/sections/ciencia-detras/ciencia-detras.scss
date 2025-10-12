@@ -1,0 +1,1820 @@
+:host {
+  display: block;
+}
+
+// Variables
+$primary-color: #0132a3;
+$primary-light: #0142b8;
+$primary-dark: #012780;
+
+// Sección principal
+.section-ciencia {
+  position: relative;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
+}
+
+// Animaciones de entrada
+.header-wrapper,
+.scientists-wrapper,
+.books-wrapper {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scientists-wrapper.animate-in {
+  transition-delay: 0.2s;
+}
+
+.books-wrapper.animate-in {
+  transition-delay: 0.4s;
+}
+
+// === HEADER ===
+
+.header-wrapper {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: #1e293b;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+}
+
+.title-highlight {
+  display: block;
+  background: linear-gradient(
+    135deg,
+    $primary-dark,
+    $primary-color,
+    $primary-light
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-top: 0.5rem;
+}
+
+.title-decoration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.decoration-line {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, $primary-color, transparent);
+}
+
+.decoration-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, $primary-color, $primary-light);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(1, 50, 163, 0.2);
+
+  svg {
+    width: 28px;
+    height: 28px;
+    color: white;
+  }
+}
+
+// === CIENTÍFICOS ===
+
+.scientists-main {
+  margin-bottom: 3rem;
+}
+
+.scientists-images {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.scientist-card {
+  opacity: 0;
+  transform: translateY(30px);
+
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+    animation: fadeInUp 0.6s ease-out backwards;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scientist-image-wrapper,
+.advisor-image-wrapper {
+  position: relative;
+  margin-bottom: 1rem;
+
+  &:hover {
+    .image-container {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 50px rgba(1, 50, 163, 0.2);
+    }
+
+    .image-glow {
+      opacity: 0.3;
+    }
+
+    .scientist-image {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.image-decoration {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: 10px;
+  bottom: 10px;
+  border: 2px solid $primary-color;
+  border-radius: 16px;
+  opacity: 0.2;
+  z-index: 0;
+
+  &.secondary {
+    border-color: $primary-light;
+  }
+
+  &.books {
+    top: -15px;
+    left: -15px;
+    right: 15px;
+    bottom: 15px;
+    border-width: 3px;
+  }
+}
+
+.image-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(1, 50, 163, 0.15), transparent);
+  filter: blur(40px);
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+
+  &.books {
+    width: 60%;
+    height: 60%;
+  }
+}
+
+.image-container {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(1, 50, 163, 0.15);
+  z-index: 1;
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.books {
+    border-radius: 16px;
+  }
+}
+
+.scientist-image,
+.books-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0;
+  transition: all 0.5s ease;
+
+  &.loaded {
+    opacity: 1;
+  }
+}
+
+.image-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// Badges
+.scientist-badge,
+.advisor-badge {
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, $primary-color, $primary-light);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 20px rgba(1, 50, 163, 0.3);
+  z-index: 2;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: white;
+  white-space: nowrap;
+}
+
+.badge-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+// Información científicos
+.scientists-info {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(1, 50, 163, 0.1);
+  border: 1px solid rgba(1, 50, 163, 0.1);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, $primary-color, $primary-light);
+  }
+}
+
+.info-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(
+    135deg,
+    rgba(1, 50, 163, 0.1),
+    rgba(1, 50, 163, 0.05)
+  );
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+
+  svg {
+    width: 28px;
+    height: 28px;
+    color: $primary-color;
+  }
+}
+
+.info-text {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #475569;
+  margin-bottom: 1.5rem;
+
+  &.secondary {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin-bottom: 0;
+  }
+}
+
+.info-stats {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(
+    135deg,
+    rgba(1, 50, 163, 0.05),
+    rgba(1, 50, 163, 0.02)
+  );
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, $primary-dark, $primary-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #64748b;
+  text-align: center;
+}
+
+.stat-divider {
+  width: 2px;
+  height: 50px;
+  background: linear-gradient(180deg, transparent, $primary-color, transparent);
+}
+
+// Asesor
+.advisor-section {
+  margin-top: 2rem;
+}
+
+.advisor-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(1, 50, 163, 0.1);
+  border: 1px solid rgba(1, 50, 163, 0.1);
+  transition: all 0.4s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 60px rgba(1, 50, 163, 0.15);
+  }
+}
+
+.advisor-image-wrapper {
+  max-width: 300px;
+  margin: 0 auto 1.5rem;
+}
+
+.advisor-info {
+  text-align: center;
+}
+
+.advisor-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: $primary-color;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.advisor-text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #475569;
+  margin: 0;
+}
+
+// === LIBROS ===
+
+.books-card {
+  background: white;
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 15px 50px rgba(1, 50, 163, 0.12);
+  border: 2px solid rgba(1, 50, 163, 0.1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(
+      90deg,
+      $primary-color,
+      $primary-light,
+      $primary-color
+    );
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 70px rgba(1, 50, 163, 0.2);
+    border-color: rgba(1, 50, 163, 0.2);
+
+    .shine-effect {
+      left: 100%;
+    }
+  }
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 0%;
+  }
+}
+
+.books-image-wrapper {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.shine-effect {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transition: left 0.7s ease;
+  z-index: 2;
+  pointer-events: none;
+  transform: skewX(-20deg);
+}
+
+.certification-badges {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.cert-badge {
+  background: linear-gradient(135deg, $primary-color, $primary-light);
+  padding: 0.5rem 0.875rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(1, 50, 163, 0.3);
+}
+
+.cert-text {
+  font-size: 0.875rem;
+  font-weight: 900;
+  color: white;
+  letter-spacing: 0.05em;
+}
+
+.books-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.header-icon.books {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(
+    135deg,
+    rgba(1, 50, 163, 0.1),
+    rgba(1, 50, 163, 0.05)
+  );
+  border: 2px solid rgba(1, 50, 163, 0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 32px;
+    height: 32px;
+    color: $primary-color;
+  }
+}
+
+.years-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, $primary-color, $primary-light);
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(1, 50, 163, 0.3);
+}
+
+.years-number {
+  font-size: 2rem;
+  font-weight: 900;
+  color: white;
+  line-height: 1;
+}
+
+.years-text {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.books-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: linear-gradient(
+    135deg,
+    $primary-dark,
+    $primary-color,
+    $primary-light
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+.books-subtitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.books-description {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(
+    135deg,
+    rgba(1, 50, 163, 0.05),
+    rgba(1, 50, 163, 0.02)
+  );
+  border-radius: 12px;
+  border-left: 4px solid $primary-color;
+  margin-bottom: 2rem;
+}
+
+.description-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    color: $primary-color;
+  }
+}
+
+.description-text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #475569;
+  margin: 0;
+}
+
+.stars-decoration {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.star-icon {
+  width: 24px;
+  height: 24px;
+  color: #fbbf24;
+  filter: drop-shadow(0 2px 4px rgba(251, 191, 36, 0.3));
+  animation: twinkle 2s ease-in-out infinite;
+
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  &:nth-child(4) {
+    animation-delay: 0.6s;
+  }
+
+  &:nth-child(5) {
+    animation-delay: 0.8s;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+}
+
+// Decoraciones de fondo
+.bg-decoration-1,
+.bg-decoration-2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+.bg-decoration-1 {
+  top: 15%;
+  right: 5%;
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(135deg, $primary-color, $primary-light);
+}
+
+.bg-decoration-2 {
+  bottom: 15%;
+  left: 5%;
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, $primary-light, $primary-dark);
+}
+
+.bg-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle at 2px 2px,
+    rgba(1, 50, 163, 0.03) 1px,
+    transparent 0
+  );
+  background-size: 40px 40px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+// Responsive
+@media (max-width: 1024px) {
+  .scientists-images {
+    gap: 1.5rem;
+  }
+
+  .info-stats {
+    padding: 1.25rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+
+  .books-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-ciencia {
+    padding: 3rem 0;
+  }
+
+  .header-wrapper {
+    margin-bottom: 3rem;
+  }
+
+  .title-decoration {
+    gap: 1rem;
+  }
+
+  .decoration-line {
+    width: 50px;
+  }
+
+  .decoration-icon {
+    width: 40px;
+    height: 40px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .scientists-images {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .scientists-info {
+    padding: 1.5rem;
+  }
+
+  .info-stats {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .stat-divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      $primary-color,
+      transparent
+    );
+  }
+
+  .advisor-section {
+    margin-top: 2rem;
+  }
+
+  .advisor-card {
+    padding: 1.5rem;
+  }
+
+  .books-card {
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+
+  .info-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .header-icon.books {
+    width: 50px;
+    height: 50px;
+
+    svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  .years-badge {
+    padding: 0.625rem 1rem;
+  }
+
+  .years-number {
+    font-size: 1.75rem;
+  }
+
+  .books-title {
+    font-size: 2rem;
+  }
+
+  .books-subtitle {
+    font-size: 1rem;
+  }
+
+  .books-description {
+    padding: 1.25rem;
+  }
+
+  .certification-badges {
+    top: 10px;
+    right: 10px;
+  }
+
+  .image-decoration {
+    top: -8px;
+    left: -8px;
+    right: 8px;
+    bottom: 8px;
+
+    &.books {
+      top: -10px;
+      left: -10px;
+      right: 10px;
+      bottom: 10px;
+    }
+  }
+
+  .bg-decoration-1,
+  .bg-decoration-2 {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .scientist-badge,
+  .advisor-badge {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .badge-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .info-stats {
+    padding: 1.25rem 1rem;
+  }
+
+  .stat-number {
+    font-size: 1.75rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+
+  .books-title {
+    font-size: 1.75rem;
+  }
+
+  .cert-badge {
+    padding: 0.375rem 0.625rem;
+  }
+
+  .cert-text {
+    font-size: 0.75rem;
+  }
+
+  .stars-decoration {
+    gap: 0.375rem;
+  }
+
+  .star-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// Accesibilidad
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+:host {
+  display: block;
+}
+
+// Variables
+$primary-color: #0132a3;
+$primary-light: #0142b8;
+$primary-dark: #012780;
+
+// Sección principal
+.section-ciencia {
+  position: relative;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
+}
+
+// Animaciones de entrada
+.header-wrapper,
+.scientists-wrapper,
+.books-wrapper {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scientists-wrapper.animate-in {
+  transition-delay: 0.2s;
+}
+
+.books-wrapper.animate-in {
+  transition-delay: 0.4s;
+}
+
+// === HEADER ===
+
+.header-wrapper {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: #1e293b;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+}
+
+.title-highlight {
+  display: block;
+  background: linear-gradient(
+    135deg,
+    $primary-dark,
+    $primary-color,
+    $primary-light
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-top: 0.5rem;
+}
+
+.title-decoration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.decoration-line {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, $primary-color, transparent);
+}
+
+.decoration-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, $primary-color, $primary-light);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(1, 50, 163, 0.2);
+
+  svg {
+    width: 28px;
+    height: 28px;
+    color: white;
+  }
+}
+
+// === CIENTÍFICOS ===
+
+.scientists-main {
+  margin-bottom: 3rem;
+}
+
+.scientists-images {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.scientist-card {
+  opacity: 0;
+  transform: translateY(30px);
+
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+    animation: fadeInUp 0.6s ease-out backwards;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scientist-image-wrapper,
+.advisor-image-wrapper {
+  position: relative;
+  margin-bottom: 1rem;
+
+  &:hover {
+    .image-container {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 50px rgba(1, 50, 163, 0.2);
+    }
+
+    .image-glow {
+      opacity: 0.3;
+    }
+
+    .scientist-image {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.image-decoration {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: 10px;
+  bottom: 10px;
+  border: 2px solid $primary-color;
+  border-radius: 16px;
+  opacity: 0.2;
+  z-index: 0;
+
+  &.secondary {
+    border-color: $primary-light;
+  }
+
+  &.books {
+    top: -15px;
+    left: -15px;
+    right: 15px;
+    bottom: 15px;
+    border-width: 3px;
+  }
+}
+
+.image-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(1, 50, 163, 0.15), transparent);
+  filter: blur(40px);
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+
+  &.books {
+    width: 60%;
+    height: 60%;
+  }
+}
+
+.image-container {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(1, 50, 163, 0.15);
+  z-index: 1;
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.books {
+    border-radius: 16px;
+  }
+}
+
+.scientist-image,
+.books-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0;
+  transition: all 0.5s ease;
+
+  &.loaded {
+    opacity: 1;
+  }
+}
+
+.image-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// Badges
+.scientist-badge,
+.advisor-badge {
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, $primary-color, $primary-light);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 20px rgba(1, 50, 163, 0.3);
+  z-index: 2;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: white;
+  white-space: nowrap;
+}
+
+.badge-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+// Información científicos
+.scientists-info {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(1, 50, 163, 0.1);
+  border: 1px solid rgba(1, 50, 163, 0.1);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, $primary-color, $primary-light);
+  }
+}
+
+.info-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(
+    135deg,
+    rgba(1, 50, 163, 0.1),
+    rgba(1, 50, 163, 0.05)
+  );
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+
+  svg {
+    width: 28px;
+    height: 28px;
+    color: $primary-color;
+  }
+}
+
+.info-text {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #475569;
+  margin-bottom: 1.5rem;
+
+  &.secondary {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin-bottom: 0;
+  }
+}
+
+.info-stats {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(
+    135deg,
+    rgba(1, 50, 163, 0.05),
+    rgba(1, 50, 163, 0.02)
+  );
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, $primary-dark, $primary-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #64748b;
+  text-align: center;
+}
+
+.stat-divider {
+  width: 2px;
+  height: 50px;
+  background: linear-gradient(180deg, transparent, $primary-color, transparent);
+}
+
+// Asesor
+.advisor-section {
+  margin-top: 2rem;
+}
+
+.advisor-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(1, 50, 163, 0.1);
+  border: 1px solid rgba(1, 50, 163, 0.1);
+  transition: all 0.4s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 60px rgba(1, 50, 163, 0.15);
+  }
+}
+
+.advisor-image-wrapper {
+  max-width: 300px;
+  margin: 0 auto 1.5rem;
+}
+
+.advisor-info {
+  text-align: center;
+}
+
+.advisor-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: $primary-color;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.advisor-text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #475569;
+  margin: 0;
+}
+
+// === LIBROS ===
+
+.books-card {
+  background: white;
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 15px 50px rgba(1, 50, 163, 0.12);
+  border: 2px solid rgba(1, 50, 163, 0.1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(
+      90deg,
+      $primary-color,
+      $primary-light,
+      $primary-color
+    );
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 70px rgba(1, 50, 163, 0.2);
+    border-color: rgba(1, 50, 163, 0.2);
+
+    .shine-effect {
+      left: 100%;
+    }
+  }
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 0%;
+  }
+}
+
+.books-image-wrapper {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.shine-effect {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transition: left 0.7s ease;
+  z-index: 2;
+  pointer-events: none;
+  transform: skewX(-20deg);
+}
+
+.certification-badges {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.cert-badge {
+  background: linear-gradient(135deg, $primary-color, $primary-light);
+  padding: 0.5rem 0.875rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(1, 50, 163, 0.3);
+}
+
+.cert-text {
+  font-size: 0.875rem;
+  font-weight: 900;
+  color: white;
+  letter-spacing: 0.05em;
+}
+
+.books-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.header-icon.books {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(
+    135deg,
+    rgba(1, 50, 163, 0.1),
+    rgba(1, 50, 163, 0.05)
+  );
+  border: 2px solid rgba(1, 50, 163, 0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 32px;
+    height: 32px;
+    color: $primary-color;
+  }
+}
+
+.years-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, $primary-color, $primary-light);
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(1, 50, 163, 0.3);
+}
+
+.years-number {
+  font-size: 2rem;
+  font-weight: 900;
+  color: white;
+  line-height: 1;
+}
+
+.years-text {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.books-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: linear-gradient(
+    135deg,
+    $primary-dark,
+    $primary-color,
+    $primary-light
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+.books-subtitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.books-description {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(
+    135deg,
+    rgba(1, 50, 163, 0.05),
+    rgba(1, 50, 163, 0.02)
+  );
+  border-radius: 12px;
+  border-left: 4px solid $primary-color;
+  margin-bottom: 2rem;
+}
+
+.description-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    color: $primary-color;
+  }
+}
+
+.description-text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #475569;
+  margin: 0;
+}
+
+.stars-decoration {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.star-icon {
+  width: 24px;
+  height: 24px;
+  color: #fbbf24;
+  filter: drop-shadow(0 2px 4px rgba(251, 191, 36, 0.3));
+  animation: twinkle 2s ease-in-out infinite;
+
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  &:nth-child(4) {
+    animation-delay: 0.6s;
+  }
+
+  &:nth-child(5) {
+    animation-delay: 0.8s;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+}
+
+// Decoraciones de fondo
+.bg-decoration-1,
+.bg-decoration-2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+.bg-decoration-1 {
+  top: 15%;
+  right: 5%;
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(135deg, $primary-color, $primary-light);
+}
+
+.bg-decoration-2 {
+  bottom: 15%;
+  left: 5%;
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, $primary-light, $primary-dark);
+}
+
+.bg-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle at 2px 2px,
+    rgba(1, 50, 163, 0.03) 1px,
+    transparent 0
+  );
+  background-size: 40px 40px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+// Responsive
+@media (max-width: 1024px) {
+  .scientists-images {
+    gap: 1.5rem;
+  }
+
+  .info-stats {
+    padding: 1.25rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+
+  .books-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-ciencia {
+    padding: 3rem 0;
+  }
+
+  .header-wrapper {
+    margin-bottom: 3rem;
+  }
+
+  .title-decoration {
+    gap: 1rem;
+  }
+
+  .decoration-line {
+    width: 50px;
+  }
+
+  .decoration-icon {
+    width: 40px;
+    height: 40px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .scientists-images {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .scientists-info {
+    padding: 1.5rem;
+  }
+
+  .info-stats {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .stat-divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      $primary-color,
+      transparent
+    );
+  }
+
+  .advisor-section {
+    margin-top: 2rem;
+  }
+
+  .advisor-card {
+    padding: 1.5rem;
+  }
+
+  .books-card {
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+
+  .info-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .header-icon.books {
+    width: 50px;
+    height: 50px;
+
+    svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  .years-badge {
+    padding: 0.625rem 1rem;
+  }
+
+  .years-number {
+    font-size: 1.75rem;
+  }
+
+  .books-title {
+    font-size: 2rem;
+  }
+
+  .books-subtitle {
+    font-size: 1rem;
+  }
+
+  .books-description {
+    padding: 1.25rem;
+  }
+
+  .certification-badges {
+    top: 10px;
+    right: 10px;
+  }
+
+  .image-decoration {
+    top: -8px;
+    left: -8px;
+    right: 8px;
+    bottom: 8px;
+
+    &.books {
+      top: -10px;
+      left: -10px;
+      right: 10px;
+      bottom: 10px;
+    }
+  }
+
+  .bg-decoration-1,
+  .bg-decoration-2 {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .scientist-badge,
+  .advisor-badge {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .badge-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .info-stats {
+    padding: 1.25rem 1rem;
+  }
+
+  .stat-number {
+    font-size: 1.75rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+
+  .books-title {
+    font-size: 1.75rem;
+  }
+
+  .cert-badge {
+    padding: 0.375rem 0.625rem;
+  }
+
+  .cert-text {
+    font-size: 0.75rem;
+  }
+
+  .stars-decoration {
+    gap: 0.375rem;
+  }
+
+  .star-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// Accesibilidad
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

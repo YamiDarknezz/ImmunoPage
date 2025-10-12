@@ -1,0 +1,82 @@
+<section
+  id="imagenes"
+  class="section-imagenes bg-white py-16 md:py-24 overflow-hidden"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Grid de imágenes -->
+    <div class="images-grid">
+      @for (image of images; track image.id; let i = $index) {
+      <div
+        class="image-card"
+        [class.animate-in]="isVisible()"
+        [style.animation-delay]="i * 0.2 + 's'"
+      >
+        <!-- Contenedor de imagen con efectos -->
+        <div class="image-wrapper">
+          <!-- Decoración de fondo -->
+          <div class="image-decoration"></div>
+          <div class="image-glow"></div>
+
+          <!-- Imagen principal -->
+          <div class="image-container">
+            <img
+              [src]="image.src"
+              [alt]="image.alt"
+              class="main-image"
+              [class.loaded]="imageLoaded()[i]"
+              (load)="onImageLoad(i)"
+            />
+
+            <!-- Skeleton loader -->
+            @if (!imageLoaded()[i]) {
+            <div class="image-skeleton"></div>
+            }
+
+            <!-- Overlay con efecto -->
+            <div class="image-overlay"></div>
+
+            <!-- Efecto de brillo -->
+            <div class="shine-effect"></div>
+          </div>
+
+          <!-- Badge flotante -->
+          <div class="image-badge">
+            <div class="badge-icon">
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  [attr.d]="image.icon"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                ></path>
+              </svg>
+            </div>
+            <span class="badge-text">{{ image.badgeText }}</span>
+          </div>
+
+          <!-- Partículas decorativas -->
+          <div class="particle particle-1"></div>
+          <div class="particle particle-2"></div>
+          <div class="particle particle-3"></div>
+        </div>
+
+        <!-- Información de la imagen -->
+        <div class="image-info">
+          <h3 class="image-title">{{ image.title }}</h3>
+          <p class="image-description">{{ image.description }}</p>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- Elementos decorativos de fondo -->
+  <div class="bg-decoration-1"></div>
+  <div class="bg-decoration-2"></div>
+  <div class="bg-pattern"></div>
+</section>

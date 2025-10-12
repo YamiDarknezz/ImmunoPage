@@ -1,0 +1,342 @@
+<section id="contacto" class="section-contacto">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <!-- Columna izquierda: Logo/Decoración -->
+      <div class="left-column" [class.animate-in]="isVisible()">
+        <div class="logo-container">
+          <!-- Logo del cliente -->
+          <div class="logo-wrapper">
+            <svg class="logo-svg" viewBox="0 0 200 200" fill="none">
+              <!-- Círculo de fondo -->
+              <circle
+                cx="100"
+                cy="100"
+                r="95"
+                stroke="white"
+                stroke-width="2"
+                opacity="0.1"
+              />
+
+              <!-- Icono principal -->
+              <g class="logo-icon">
+                <!-- Teléfono -->
+                <rect
+                  x="70"
+                  y="50"
+                  width="60"
+                  height="100"
+                  rx="8"
+                  stroke="white"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <rect
+                  x="75"
+                  y="55"
+                  width="50"
+                  height="60"
+                  fill="none"
+                  stroke="white"
+                  stroke-width="1.5"
+                />
+                <circle cx="100" cy="155" r="4" fill="white" />
+
+                <!-- Punto de contacto -->
+                <circle cx="140" cy="75" r="8" fill="#4ade80" opacity="0.8" />
+                <circle
+                  cx="140"
+                  cy="75"
+                  r="12"
+                  stroke="#4ade80"
+                  stroke-width="2"
+                  fill="none"
+                  opacity="0.5"
+                />
+              </g>
+
+              <!-- Elementos decorativos -->
+              <circle cx="50" cy="50" r="3" fill="white" opacity="0.6" />
+              <circle cx="150" cy="150" r="3" fill="white" opacity="0.6" />
+              <line
+                x1="30"
+                y1="100"
+                x2="50"
+                y2="100"
+                stroke="white"
+                stroke-width="1.5"
+                opacity="0.3"
+              />
+              <line
+                x1="150"
+                y1="100"
+                x2="170"
+                y2="100"
+                stroke="white"
+                stroke-width="1.5"
+                opacity="0.3"
+              />
+            </svg>
+          </div>
+
+          <!-- Estadísticas decorativas -->
+          <div class="stats-box">
+            <div class="stat">
+              <div class="stat-icon">📞</div>
+              <div class="stat-text">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Disponibles</div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="stat">
+              <div class="stat-icon">⚡</div>
+              <div class="stat-text">
+                <div class="stat-number">&lt;2h</div>
+                <div class="stat-label">Respuesta</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Características -->
+          <div class="features-list">
+            <div class="feature-item">
+              <svg
+                class="feature-icon"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"
+                ></path>
+              </svg>
+              <span>Asesoramiento personalizado</span>
+            </div>
+            <div class="feature-item">
+              <svg
+                class="feature-icon"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"
+                ></path>
+              </svg>
+              <span>Respuestas rápidas y confiables</span>
+            </div>
+            <div class="feature-item">
+              <svg
+                class="feature-icon"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"
+                ></path>
+              </svg>
+              <span>Soporte en tu idioma</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna derecha: Formulario -->
+      <div class="right-column" [class.animate-in]="isVisible()">
+        <!-- Encabezado -->
+        <div class="form-header">
+          <h2 class="form-title">
+            Empieza tu negocio
+            <span class="title-highlight">hoy</span>
+          </h2>
+          <p class="form-description">
+            En Immunotec tenemos 7 formas para generar ingresos. Contáctanos y
+            te asesoraremos de manera rápida y confiable para que inicies en el
+            negocio.
+          </p>
+        </div>
+
+        <!-- Mensajes de estado -->
+        @if (successMessage()) {
+        <div
+          class="message success-message"
+          [class.animate-in]="successMessage()"
+        >
+          <svg class="message-icon" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span>{{ successMessage() }}</span>
+        </div>
+        } @if (errorMessage()) {
+        <div class="message error-message" [class.animate-in]="errorMessage()">
+          <svg class="message-icon" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span>{{ errorMessage() }}</span>
+        </div>
+        }
+
+        <!-- Formulario -->
+        <form
+          [formGroup]="contactForm"
+          (ngSubmit)="submitForm()"
+          class="contact-form"
+        >
+          <!-- Nombre -->
+          <div class="form-group">
+            <label for="nombre" class="form-label">Nombre completo</label>
+            <input
+              id="nombre"
+              type="text"
+              formControlName="nombre"
+              placeholder="Ingresa tu nombre"
+              class="form-input"
+              [class.error]="isFieldInvalid('nombre')"
+            />
+            @if (getFieldError('nombre')) {
+            <span class="error-text">{{ getFieldError("nombre") }}</span>
+            }
+          </div>
+
+          <!-- Correo -->
+          <div class="form-group">
+            <label for="correo" class="form-label">Correo electrónico</label>
+            <input
+              id="correo"
+              type="email"
+              formControlName="correo"
+              placeholder="Escribe tu correo electrónico"
+              class="form-input"
+              [class.error]="isFieldInvalid('correo')"
+            />
+            @if (getFieldError('correo')) {
+            <span class="error-text">{{ getFieldError("correo") }}</span>
+            }
+          </div>
+
+          <!-- Celular con código de país -->
+          <div class="form-group">
+            <label for="celular" class="form-label">Teléfono</label>
+            <div class="phone-input-group">
+              <select
+                class="country-select"
+                [(ngModel)]="countryCode"
+                [disabled]="isLoading()"
+                [ngModelOptions]="{ standalone: true }"
+              >
+                @for (country of countries; track country.code) {
+                <option [value]="country.code">
+                  {{ country.flag }} {{ country.code }}
+                </option>
+                }
+              </select>
+
+              <input
+                id="celular"
+                type="tel"
+                formControlName="celular"
+                placeholder="Número de celular"
+                class="form-input phone-input"
+                [class.error]="isFieldInvalid('celular')"
+              />
+            </div>
+
+            @if (getFieldError('celular')) {
+            <span class="error-text">{{ getFieldError("celular") }}</span>
+            }
+          </div>
+
+          <!-- Mensaje (opcional) -->
+          <div class="form-group">
+            <label for="mensaje" class="form-label">Mensaje (opcional)</label>
+            <textarea
+              id="mensaje"
+              formControlName="mensaje"
+              placeholder="Cuéntanos qué tipo de negocio te interesa..."
+              class="form-textarea"
+              rows="4"
+            ></textarea>
+          </div>
+
+          <!-- Botón submit -->
+          <button type="submit" class="submit-button" [disabled]="isLoading()">
+            <span class="button-glow"></span>
+            <span class="button-content">
+              @if (!isLoading()) {
+              <svg
+                class="button-icon"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                ></path>
+              </svg>
+              } @else {
+              <svg class="button-icon spinner" fill="none" viewBox="0 0 24 24">
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  fill="none"
+                  opacity="0.3"
+                ></circle>
+                <path
+                  d="M22 12a10 10 0 11-20 0"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  fill="none"
+                  stroke-linecap="round"
+                ></path>
+              </svg>
+              }
+
+              <span class="button-text">
+                {{ isLoading() ? "Enviando..." : "CONTACTANOS AHORA" }}
+              </span>
+            </span>
+          </button>
+        </form>
+
+        <!-- Privacidad -->
+        <p class="privacy-text">
+          Tus datos están protegidos. No compartimos tu información con
+          terceros.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Decoraciones de fondo -->
+  <div class="bg-decoration-1"></div>
+  <div class="bg-decoration-2"></div>
+  <div class="floating-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+</section>

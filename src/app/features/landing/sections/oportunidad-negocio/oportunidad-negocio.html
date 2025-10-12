@@ -1,0 +1,211 @@
+<section
+  id="oportunidad-negocio"
+  class="section-oportunidad-negocio bg-white py-16 md:py-24 overflow-hidden"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <!-- Columna izquierda: Contenido -->
+      <div class="content-wrapper" [class.animate-in]="isVisible()">
+        <!-- Etiqueta decorativa -->
+        <div class="label-container">
+          <div class="label-pulse"></div>
+          <span class="label-text">Oportunidad Única</span>
+          <svg
+            class="label-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 10V3L4 14h7v7l9-11h-7z"
+            ></path>
+          </svg>
+        </div>
+
+        <!-- Título principal -->
+        <h2 class="section-title">
+          Una increíble
+          <span class="title-highlight">oportunidad de negocio</span>
+          para nuestro tiempo
+        </h2>
+
+        <!-- Descripción destacada -->
+        <div class="intro-box">
+          <div class="intro-icon">
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              ></path>
+            </svg>
+          </div>
+          <p class="intro-text">
+            Bienvenido a una oportunidad de mercadeo en red que combina
+            productos de primera calidad, capacitación y apoyo de clase mundial
+            y uno de los planes de compensación más generosos de la industria.
+          </p>
+        </div>
+
+        <!-- Beneficios con iconos -->
+        <div class="benefits-list">
+          @for (benefit of benefits; track benefit.id; let i = $index) {
+          <div
+            class="benefit-item"
+            [class.animate-in]="isVisible()"
+            [style.animation-delay]="i * 0.1 + 's'"
+          >
+            <div class="benefit-icon">
+              <svg class="icon-svg" fill="currentColor" viewBox="0 0 24 24">
+                <path [attr.d]="getIconPath(benefit.icon)"></path>
+              </svg>
+            </div>
+            <span class="benefit-text">{{ benefit.text }}</span>
+          </div>
+          }
+        </div>
+
+        <!-- Texto descriptivo -->
+        <div class="description-text">
+          <p class="text-paragraph">
+            <strong class="text-emphasis"
+              >Bienestar, condición física, energía.</strong
+            >
+            Éstos son los temas centrales de la creciente industria de productos
+            para el estilo de vida.
+          </p>
+          <p class="text-paragraph">
+            Tu negocio, basado en el hogar, se desarrollará mediante la venta de
+            productos que la gente realmente necesita. Si eliges crecer, puedes
+            lograrlo a través del desarrollo de un equipo, conformado con otras
+            personas que hacen lo mismo.
+          </p>
+        </div>
+
+        <!-- Botón de WhatsApp -->
+        <button (click)="contactWhatsApp()" class="cta-button group">
+          <span class="button-gradient"></span>
+          <span class="button-content">
+            <svg class="button-icon" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"
+              />
+            </svg>
+            <span class="button-text">ÚNETE A NUESTRA FAMILIA</span>
+            <svg
+              class="button-arrow"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              ></path>
+            </svg>
+          </span>
+        </button>
+
+        <!-- Badge decorativo -->
+        <div class="trust-badge">
+          <svg
+            class="trust-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+            ></path>
+          </svg>
+          <span class="trust-text"
+            >Respaldado por más de 40 años de investigación</span
+          >
+        </div>
+      </div>
+
+      <!-- Columna derecha: Video -->
+      <div class="video-wrapper" [class.animate-in]="isVisible()">
+        <div class="video-container" [class.playing]="isVideoPlaying()">
+          <!-- Decoraciones solo visibles cuando NO se está reproduciendo -->
+          @if (!isVideoPlaying()) {
+          <div class="video-decoration-ring ring-1"></div>
+          <div class="video-decoration-ring ring-2"></div>
+          <div class="video-decoration-ring ring-3"></div>
+          }
+
+          <!-- Frame del video -->
+          <div class="video-frame" (click)="onVideoFrameClick()">
+            <iframe
+              [src]="videoUrl"
+              class="video-iframe"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+            >
+            </iframe>
+
+            <!-- Overlay decorativo solo cuando NO se está reproduciendo -->
+            @if (!isVideoPlaying()) {
+            <div class="video-overlay">
+              <div class="play-button">
+                <div class="play-button-inner">
+                  <svg
+                    class="play-icon"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
+              <div class="overlay-text">
+                <p class="overlay-title">Descubre la oportunidad</p>
+                <p class="overlay-subtitle">Haz clic para reproducir</p>
+              </div>
+            </div>
+            }
+          </div>
+
+          <!-- Badge informativo -->
+          <div class="video-badge">
+            <svg
+              class="badge-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <span class="badge-text">Video informativo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Elementos decorativos de fondo -->
+  <div class="bg-dots"></div>
+  <div class="bg-gradient-1"></div>
+  <div class="bg-gradient-2"></div>
+</section>

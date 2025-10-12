@@ -1,0 +1,159 @@
+// ===== VARIABLES =====
+
+// Desktop (1920px+)
+$hero-video-top-clip-desktop: 10%;
+$hero-video-bottom-clip-desktop: 10%;
+
+// Tablet (768px - 1024px)
+$hero-video-top-clip-tablet: 10%;
+$hero-video-bottom-clip-tablet: 10%;
+
+// Móvil (640px - 767px)
+$hero-video-top-clip-mobile: 10%;
+$hero-video-bottom-clip-mobile: 10%;
+
+// Móvil pequeño (< 640px)
+$hero-video-top-clip-small: 10%;
+$hero-video-bottom-clip-small: 10%;
+
+// ===== SECCIÓN HERO VIDEO =====
+
+.hero-video-section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+
+  // ✅ Compensación para eliminar los espacios blancos (Desktop)
+  margin-top: -$hero-video-top-clip-desktop;
+  margin-bottom: -$hero-video-bottom-clip-desktop;
+
+  // 🟩 Recorte aplicado al contenedor completo
+  clip-path: inset(
+    #{$hero-video-top-clip-desktop} 0 #{$hero-video-bottom-clip-desktop} 0
+  );
+
+  .hero-video-content {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  iframe.hero-video-content {
+    pointer-events: none;
+    user-select: none;
+  }
+
+  // 🟦 Gradiente inferior
+  .hero-video-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    background: linear-gradient(
+      to bottom,
+      rgba(1, 50, 163, 0) 0%,
+      rgba(1, 50, 163, 0) calc(100% - #{$hero-video-bottom-clip-desktop}),
+      #0132a3 100%
+    );
+  }
+
+  // 🔹 Overlay (texto, logo, etc)
+  .hero-video-content-overlay {
+    position: relative;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: white;
+    font-size: 3rem;
+    font-weight: bold;
+    animation: fadeIn 1s ease-out forwards;
+  }
+
+  // ===== MEDIA QUERIES =====
+
+  @media (max-width: 1024px) {
+    // ✅ Compensación para Tablet
+    margin-top: -$hero-video-top-clip-tablet;
+    margin-bottom: -$hero-video-bottom-clip-tablet;
+
+    clip-path: inset(
+      #{$hero-video-top-clip-tablet} 0 #{$hero-video-bottom-clip-tablet} 0
+    );
+
+    .hero-video-gradient {
+      background: linear-gradient(
+        to bottom,
+        rgba(1, 50, 163, 0) 0%,
+        rgba(1, 50, 163, 0) calc(100% - #{$hero-video-bottom-clip-tablet}),
+        #0132a3 100%
+      );
+    }
+  }
+
+  @media (max-width: 767px) {
+    // ✅ Compensación para Móvil
+    margin-top: -$hero-video-top-clip-mobile;
+    margin-bottom: -$hero-video-bottom-clip-mobile;
+
+    clip-path: inset(
+      #{$hero-video-top-clip-mobile} 0 #{$hero-video-bottom-clip-mobile} 0
+    );
+
+    .hero-video-gradient {
+      background: linear-gradient(
+        to bottom,
+        rgba(1, 50, 163, 0) 0%,
+        rgba(1, 50, 163, 0) calc(100% - #{$hero-video-bottom-clip-mobile}),
+        #0132a3 100%
+      );
+    }
+  }
+
+  @media (max-width: 640px) {
+    // ✅ Compensación para Móvil pequeño
+    margin-top: -$hero-video-top-clip-small;
+    margin-bottom: -$hero-video-bottom-clip-small;
+
+    clip-path: inset(
+      #{$hero-video-top-clip-small} 0 #{$hero-video-bottom-clip-small} 0
+    );
+
+    .hero-video-gradient {
+      background: linear-gradient(
+        to bottom,
+        rgba(1, 50, 163, 0) 0%,
+        rgba(1, 50, 163, 0) calc(100% - #{$hero-video-bottom-clip-small}),
+        #0132a3 100%
+      );
+    }
+
+    .hero-video-content-overlay {
+      font-size: 1.875rem;
+    }
+  }
+}
+
+// ===== ANIMACIONES =====
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-video-content-overlay {
+    animation: none;
+    opacity: 1;
+  }
+}

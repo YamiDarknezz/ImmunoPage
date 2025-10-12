@@ -1,0 +1,607 @@
+:host {
+  display: block;
+}
+
+// Variables
+$primary-color: #0132a3;
+$primary-light: #0142b8;
+$primary-dark: #012780;
+
+// Sección principal
+.section-asociate {
+  position: relative;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+// Animaciones de entrada
+.ceo-wrapper,
+.content-wrapper,
+.offices-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.content-wrapper.animate-in {
+  transition-delay: 0.2s;
+}
+
+.offices-section.animate-in {
+  transition-delay: 0.4s;
+}
+
+// === CEO SECTION ===
+
+.ceo-wrapper {
+  position: relative;
+}
+
+.ceo-image-container {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.image-decoration {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: 20px;
+  bottom: 20px;
+  border: 3px solid $primary-color;
+  border-radius: 24px;
+  z-index: 0;
+  opacity: 0.3;
+}
+
+.image-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  background: radial-gradient(circle, rgba(1, 50, 163, 0.2), transparent);
+  filter: blur(40px);
+  z-index: 0;
+}
+
+.image-wrapper {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(1, 50, 163, 0.2);
+  z-index: 1;
+  aspect-ratio: 3/4;
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+}
+
+.ceo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+
+  &.loaded {
+    opacity: 1;
+  }
+}
+
+.image-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// Badge del CEO
+.ceo-badge {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, $primary-color, $primary-light);
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(1, 50, 163, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 2;
+  min-width: 280px;
+  backdrop-filter: blur(10px);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); // ← agrega esto
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+}
+
+.badge-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.badge-content {
+  flex: 1;
+}
+
+.badge-name {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.badge-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0.25rem 0 0;
+}
+
+// === CONTENT SECTION ===
+
+.section-title {
+  margin-bottom: 2rem;
+}
+
+.title-main {
+  display: block;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  background: linear-gradient(
+    135deg,
+    $primary-dark,
+    $primary-color,
+    $primary-light
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.title-subtitle {
+  display: block;
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.02em;
+}
+
+.content-text {
+  margin-bottom: 2.5rem;
+}
+
+.text-paragraph {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: #475569;
+  margin-bottom: 1.5rem;
+
+  &.first-paragraph {
+    font-size: 1.125rem;
+    color: #334155;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.text-highlight {
+  color: $primary-color;
+  font-weight: 700;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      $primary-color,
+      transparent
+    );
+    opacity: 0.3;
+  }
+}
+
+// Botón CTA mejorado
+.cta-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 2.5rem;
+  background: transparent;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+
+  .button-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+    border-radius: 50px;
+    transition: all 0.3s ease;
+  }
+
+  .button-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: white;
+    z-index: 1;
+  }
+
+  .button-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .button-text {
+    flex: 1;
+  }
+
+  .button-arrow {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, #25d366, #128c7e, #25d366);
+    border-radius: 50px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(37, 211, 102, 0.4);
+
+    &::before {
+      opacity: 1;
+      animation: rotate-gradient 2s linear infinite;
+    }
+
+    .button-arrow {
+      transform: translateX(4px);
+    }
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes rotate-gradient {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// === OFFICES SECTION ===
+
+.offices-section {
+  margin-top: 4rem;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(1, 50, 163, 0.1);
+}
+
+.offices-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.offices-title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: $primary-color;
+  margin-bottom: 1rem;
+  display: inline-block;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      $primary-color,
+      transparent
+    );
+    border-radius: 2px;
+  }
+}
+
+.offices-line {
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, $primary-color, transparent);
+  margin: 1rem auto 0;
+}
+
+.offices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.office-card {
+  position: relative;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(1, 50, 163, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  animation: slideInUp 0.6s ease-out backwards;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(1, 50, 163, 0.05), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(1, 50, 163, 0.2);
+
+    &::before {
+      opacity: 1;
+    }
+
+    .card-image {
+      transform: scale(1.1);
+    }
+
+    .card-overlay {
+      opacity: 0.6;
+    }
+
+    .card-shine {
+      left: 100%;
+    }
+  }
+}
+
+.card-image-wrapper {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(1, 50, 163, 0.8) 100%
+  );
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.card-content {
+  position: relative;
+  padding: 1.5rem;
+  background: white;
+  z-index: 2;
+}
+
+.card-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: $primary-color;
+  margin: 0 0 0.5rem;
+}
+
+.card-location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: #64748b;
+  font-weight: 500;
+  margin: 0;
+}
+
+.location-icon {
+  width: 18px;
+  height: 18px;
+  color: $primary-color;
+}
+
+.card-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.6s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Decoraciones de fondo
+.bg-decoration-1,
+.bg-decoration-2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.bg-decoration-1 {
+  top: 10%;
+  right: 5%;
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(135deg, $primary-color, $primary-light);
+}
+
+.bg-decoration-2 {
+  bottom: 10%;
+  left: 5%;
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, $primary-light, $primary-dark);
+}
+
+// Responsive
+@media (max-width: 1024px) {
+  .ceo-badge {
+    min-width: 240px;
+    padding: 0.875rem 1.25rem;
+  }
+
+  .badge-name {
+    font-size: 1rem;
+  }
+
+  .badge-title {
+    font-size: 0.8125rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-asociate {
+    padding: 3rem 0;
+  }
+
+  .ceo-image-container {
+    max-width: 350px;
+    margin-bottom: 3rem;
+  }
+
+  .image-decoration {
+    top: -10px;
+    left: -10px;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .cta-button {
+    width: 100%;
+    padding: 1.125rem 1.5rem;
+
+    .button-text {
+      font-size: 0.875rem;
+    }
+  }
+
+  .offices-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .bg-decoration-1,
+  .bg-decoration-2 {
+    display: none;
+  }
+}
+
+// Accesibilidad
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

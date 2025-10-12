@@ -1,0 +1,900 @@
+:host {
+  display: block;
+}
+
+// Variables
+$primary-color: #0132a3;
+$primary-light: #0142b8;
+$primary-dark: #012780;
+
+// Sección principal
+.section-oportunidad-negocio {
+  position: relative;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafb 100%);
+}
+
+// Animaciones de entrada
+.content-wrapper,
+.video-wrapper {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.video-wrapper.animate-in {
+  transition-delay: 0.2s;
+}
+
+// === CONTENIDO ===
+
+.label-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1.25rem;
+  background: linear-gradient(
+    135deg,
+    rgba(1, 50, 163, 0.08),
+    rgba(1, 50, 163, 0.04)
+  );
+  border: 2px solid rgba(1, 50, 163, 0.15);
+  border-radius: 50px;
+  margin-bottom: 1.5rem;
+  animation: slideInLeft 0.6s ease-out;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(1, 50, 163, 0.1),
+      transparent
+    );
+    animation: shimmer 3s infinite;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.label-pulse {
+  width: 10px;
+  height: 10px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+  }
+}
+
+.label-text {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: $primary-color;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.label-icon {
+  width: 18px;
+  height: 18px;
+  color: $primary-color;
+}
+
+// Título
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #1e293b;
+  margin-bottom: 2rem;
+  animation: fadeInUp 0.8s ease-out;
+
+  .title-highlight {
+    display: inline;
+    background: linear-gradient(
+      135deg,
+      $primary-dark,
+      $primary-color,
+      $primary-light
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, $primary-color, $primary-light);
+      border-radius: 2px;
+      opacity: 0.3;
+    }
+  }
+}
+
+// Caja de introducción
+.intro-box {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(
+    135deg,
+    rgba(1, 50, 163, 0.05),
+    rgba(1, 50, 163, 0.02)
+  );
+  border-left: 4px solid $primary-color;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  animation: fadeInUp 0.8s ease-out 0.2s backwards;
+}
+
+.intro-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, $primary-color, $primary-light);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.intro-text {
+  flex: 1;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: #475569;
+  margin: 0;
+  font-weight: 500;
+}
+
+// Lista de beneficios
+.benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin-bottom: 2rem;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: white;
+  border: 2px solid rgba(1, 50, 163, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateX(-20px);
+
+  &.animate-in {
+    opacity: 1;
+    transform: translateX(0);
+    animation: slideInLeft 0.6s ease-out backwards;
+  }
+
+  &:hover {
+    border-color: $primary-color;
+    box-shadow: 0 8px 24px rgba(1, 50, 163, 0.12);
+    transform: translateX(8px);
+  }
+}
+
+.benefit-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(
+    135deg,
+    rgba(1, 50, 163, 0.1),
+    rgba(1, 50, 163, 0.05)
+  );
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  .icon-svg {
+    width: 20px;
+    height: 20px;
+    color: $primary-color;
+  }
+}
+
+.benefit-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #334155;
+  flex: 1;
+}
+
+// Texto descriptivo
+.description-text {
+  margin-bottom: 2.5rem;
+}
+
+.text-paragraph {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: #64748b;
+  margin-bottom: 1rem;
+  animation: fadeInUp 0.8s ease-out 0.4s backwards;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .text-emphasis {
+    color: $primary-color;
+    font-weight: 700;
+  }
+}
+
+// Botón CTA
+.cta-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1.25rem 2rem;
+  background: transparent;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 1.5rem;
+
+  .button-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+    border-radius: 50px;
+    z-index: 0;
+    transition: all 0.3s ease;
+  }
+
+  .button-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    color: white;
+    z-index: 1;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    letter-spacing: 0.05em;
+  }
+
+  .button-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .button-text {
+    flex: 1;
+  }
+
+  .button-arrow {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
+
+    .button-gradient {
+      background: linear-gradient(135deg, #128c7e 0%, #25d366 100%);
+    }
+
+    .button-arrow {
+      transform: translateX(4px);
+    }
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+}
+
+// Badge de confianza
+.trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: 12px;
+  animation: fadeInUp 0.8s ease-out 0.6s backwards;
+}
+
+.trust-icon {
+  width: 24px;
+  height: 24px;
+  color: #22c55e;
+}
+
+.trust-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+// === VIDEO ===
+
+.video-wrapper {
+  position: relative;
+}
+
+.video-container {
+  position: relative;
+  border-radius: 24px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+
+  &.playing {
+    .video-decoration-ring {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+}
+
+// Anillos decorativos (solo cuando NO se reproduce)
+.video-decoration-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 2px solid $primary-color;
+  opacity: 0.2;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.ring-1 {
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  animation: ring-pulse 3s ease-in-out infinite;
+}
+
+.ring-2 {
+  width: 110%;
+  height: 110%;
+  transform: translate(-50%, -50%);
+  animation: ring-pulse 3s ease-in-out 1s infinite;
+  opacity: 0.15;
+}
+
+.ring-3 {
+  width: 120%;
+  height: 120%;
+  transform: translate(-50%, -50%);
+  animation: ring-pulse 3s ease-in-out 2s infinite;
+  opacity: 0.1;
+}
+
+@keyframes ring-pulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 0.1;
+  }
+}
+
+.video-frame {
+  position: relative;
+  aspect-ratio: 16/9;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.1));
+  box-shadow: 0 25px 60px rgba(1, 50, 163, 0.2);
+  z-index: 1;
+  cursor: pointer;
+}
+
+.video-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+
+// Overlay decorativo del video
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(1, 50, 163, 0.85) 0%,
+    rgba(1, 66, 184, 0.75) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+
+  &:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(1, 50, 163, 0.9) 0%,
+      rgba(1, 66, 184, 0.85) 100%
+    );
+
+    .play-button-inner {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.play-button {
+  position: relative;
+}
+
+.play-button-inner {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  animation: pulse-play 2.5s ease-in-out infinite;
+
+  .play-icon {
+    width: 32px;
+    height: 32px;
+    color: $primary-color;
+    margin-left: 4px;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: ripple 2.5s ease-in-out infinite;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -16px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    animation: ripple 2.5s ease-in-out 0.5s infinite;
+  }
+}
+
+@keyframes pulse-play {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.overlay-text {
+  text-align: center;
+}
+
+.overlay-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 0.5rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.overlay-subtitle {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  font-weight: 500;
+}
+
+// Badge del video
+.video-badge {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  z-index: 4;
+  animation: slideInUp 0.8s ease-out 0.5s backwards;
+}
+
+.badge-icon {
+  width: 20px;
+  height: 20px;
+  color: $primary-color;
+}
+
+.badge-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: $primary-color;
+}
+
+// === DECORACIONES DE FONDO ===
+
+.bg-dots {
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  width: 200px;
+  height: 200px;
+  background-image: radial-gradient(
+    circle,
+    rgba(1, 50, 163, 0.1) 2px,
+    transparent 2px
+  );
+  background-size: 20px 20px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.bg-gradient-1,
+.bg-gradient-2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.bg-gradient-1 {
+  top: 20%;
+  left: 5%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, $primary-color, transparent);
+  animation: float-gradient 10s ease-in-out infinite;
+}
+
+.bg-gradient-2 {
+  bottom: 20%;
+  right: 5%;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, $primary-light, transparent);
+  animation: float-gradient 12s ease-in-out infinite reverse;
+}
+
+@keyframes float-gradient {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-30px) scale(1.1);
+  }
+}
+
+// === ANIMACIONES GENERALES ===
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// === RESPONSIVE ===
+
+@media (max-width: 1024px) {
+  .section-title {
+    font-size: 2.5rem;
+  }
+
+  .intro-box {
+    padding: 1.25rem;
+  }
+
+  .benefits-list {
+    gap: 0.75rem;
+  }
+
+  .video-badge {
+    bottom: 1rem;
+    left: 1rem;
+    padding: 0.625rem 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-oportunidad-negocio {
+    padding: 3rem 0;
+  }
+
+  .label-container {
+    padding: 0.5rem 1rem;
+  }
+
+  .label-text {
+    font-size: 0.75rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .intro-box {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .intro-text {
+    font-size: 1rem;
+  }
+
+  .benefit-item {
+    padding: 0.875rem 1rem;
+  }
+
+  .benefit-icon {
+    width: 36px;
+    height: 36px;
+
+    .icon-svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .benefit-text {
+    font-size: 0.9375rem;
+  }
+
+  .text-paragraph {
+    font-size: 1rem;
+  }
+
+  .cta-button {
+    padding: 1.125rem 1.5rem;
+
+    .button-text {
+      font-size: 0.875rem;
+    }
+
+    .button-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .button-arrow {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .trust-badge {
+    padding: 0.625rem 1rem;
+  }
+
+  .trust-text {
+    font-size: 0.8125rem;
+  }
+
+  .video-container {
+    padding: 0.5rem;
+  }
+
+  .play-button-inner {
+    width: 64px;
+    height: 64px;
+
+    .play-icon {
+      width: 26px;
+      height: 26px;
+    }
+  }
+
+  .overlay-title {
+    font-size: 1.25rem;
+  }
+
+  .overlay-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .video-decoration-ring {
+    display: none;
+  }
+
+  .bg-gradient-1,
+  .bg-gradient-2 {
+    width: 250px;
+    height: 250px;
+  }
+}
+
+@media (max-width: 640px) {
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .intro-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .benefits-list {
+    gap: 0.625rem;
+  }
+
+  .cta-button {
+    .button-content {
+      gap: 0.5rem;
+    }
+
+    .button-icon,
+    .button-arrow {
+      display: none;
+    }
+  }
+
+  .trust-badge {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .video-badge {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    margin-top: 1rem;
+  }
+
+  .bg-dots {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+// === ACCESIBILIDAD ===
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// Mejoras de contraste
+@media (prefers-contrast: high) {
+  .label-container {
+    border-width: 3px;
+  }
+
+  .benefit-item {
+    border-width: 3px;
+  }
+
+  .intro-box {
+    border-left-width: 6px;
+  }
+}
+
+// Soporte para impresión
+@media print {
+  .video-wrapper,
+  .cta-button {
+    display: none;
+  }
+
+  .section-oportunidad-negocio {
+    background: white;
+  }
+
+  .bg-dots,
+  .bg-gradient-1,
+  .bg-gradient-2 {
+    display: none;
+  }
+}

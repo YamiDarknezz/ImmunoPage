@@ -1,0 +1,84 @@
+<section
+  id="video-info"
+  class="section-video-info bg-primary py-16 md:py-24 overflow-hidden"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <!-- Columna izquierda: Stats -->
+      <div class="stats-wrapper" [class.animate-in]="isVisible()">
+        <div class="stats-container">
+          @for (stat of stats; track stat.id; let i = $index) {
+          <div
+            class="stat-card"
+            [style.animation-delay]="i * 0.15 + 's'"
+            [class.animate-in]="isVisible()"
+          >
+            <div class="stat-icon-wrapper">
+              <div class="stat-icon-bg"></div>
+              <svg
+                class="stat-icon"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  [attr.d]="stat.icon"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                ></path>
+              </svg>
+            </div>
+
+            <div class="stat-content">
+              <div class="stat-number-wrapper">
+                <span class="stat-number" [attr.data-target]="stat.number">
+                  {{ animatedNumbers()[i] || 0 }}
+                </span>
+                <span class="stat-suffix">{{ stat.suffix }}</span>
+              </div>
+              <p class="stat-label">{{ stat.label }}</p>
+            </div>
+
+            <div class="stat-decoration"></div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Columna derecha: Video -->
+      <div class="video-wrapper" [class.animate-in]="isVisible()">
+        <div class="video-container">
+          <!-- Decoración de fondo -->
+          <div class="video-decoration"></div>
+          <div class="video-glow"></div>
+
+          <!-- Frame del video -->
+          <div class="video-frame">
+            <iframe
+              [src]="videoUrl"
+              title="Immunotec Video"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+              class="video-iframe"
+            ></iframe>
+          </div>
+
+          <!-- Badge de play decorativo -->
+          <div class="play-badge">
+            <svg class="play-icon" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Elementos decorativos de fondo -->
+  <div class="bg-decoration-1"></div>
+  <div class="bg-decoration-2"></div>
+  <div class="bg-decoration-3"></div>
+</section>

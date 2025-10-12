@@ -1,0 +1,240 @@
+<section
+  id="fortalece-sistema"
+  class="section-fortalece bg-primary py-16 md:py-24 overflow-hidden"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Sección superior: Producto + IDEA -->
+    <div
+      class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16 md:mb-24"
+    >
+      <!-- Columna izquierda: Imagen y botón -->
+      <div class="product-wrapper" [class.animate-in]="isVisible()">
+        <!-- Imagen del producto -->
+        <div class="product-image-container">
+          <div class="image-decoration"></div>
+          <div class="image-glow"></div>
+
+          <div class="image-wrapper">
+            <img
+              src="/img/inmunocal.png"
+              alt="Immunocal - Producto"
+              class="product-image"
+              [class.loaded]="imageLoaded()"
+              (load)="onImageLoad()"
+            />
+
+            @if (!imageLoaded()) {
+            <div class="image-skeleton"></div>
+            }
+          </div>
+
+          <!-- Badges decorativos -->
+          <div class="product-badge badge-top">
+            <svg class="badge-icon" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              ></path>
+            </svg>
+            <span>Premium</span>
+          </div>
+
+          <div class="product-badge badge-bottom">
+            <svg
+              class="badge-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+              ></path>
+            </svg>
+            <span>Certificado</span>
+          </div>
+        </div>
+
+        <!-- Botón de compra -->
+        <button (click)="contactWhatsApp()" class="cta-button group">
+          <span class="button-bg"></span>
+          <span class="button-content">
+            <svg class="button-icon" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"
+              />
+            </svg>
+            <span class="button-text">QUIERO COMPRAR EL PRODUCTO</span>
+            <svg
+              class="button-arrow"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              ></path>
+            </svg>
+          </span>
+        </button>
+      </div>
+
+      <!-- Columna derecha: Título + IDEA -->
+      <div class="content-wrapper" [class.animate-in]="isVisible()">
+        <h2 class="section-title">
+          Immunocal fortalece el<br />
+          <span class="title-highlight">sistema inmunológico</span>
+        </h2>
+
+        <!-- Lista IDEA -->
+        <div class="idea-list">
+          @for (item of ideaItems; track item.id; let i = $index) {
+          <div
+            class="idea-item"
+            [style.animation-delay]="i * 0.1 + 's'"
+            [class.animate-in]="isVisible()"
+          >
+            <div class="idea-letter">
+              <span class="letter">{{ item.letter }}</span>
+              <div class="letter-glow"></div>
+            </div>
+
+            <div class="idea-content">
+              <h3 class="idea-title">{{ item.title }}</h3>
+              <div class="idea-line"></div>
+            </div>
+
+            <div class="idea-decoration"></div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Separador decorativo -->
+    <div class="section-divider" [class.animate-in]="isVisible()">
+      <div class="divider-line"></div>
+      <div class="divider-icon">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 14l-7 7m0 0l-7-7m7 7V3"
+          ></path>
+        </svg>
+      </div>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- Sección inferior: Información -->
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16">
+      <!-- ¿Qué es Immunocal? -->
+      <div class="info-card" [class.animate-in]="isVisible()">
+        <div class="card-header">
+          <div class="header-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="card-title">¿Qué es Immunocal?</h3>
+        </div>
+
+        <div class="card-content">
+          <p class="card-text">
+            El Immunocal, originalmente llamado HMS-90, es un complemento
+            alimenticio el cual suministra todos los aminoácidos que necesita el
+            cuerpo humano para poder llevar a cabo sus funciones biológicas. Se
+            comercializa en forma de polvo y se mezcla con agua, yogur o con
+            zumo de frutas. Destaca por contener grandes cantidades del
+            aminoácido cisteína, el cual, mediante reacciones metabólicas, es
+            transformado en un potente antioxidante: el glutatión.
+          </p>
+          <p class="card-text">
+            El glutatión es una sustancia cuya función principal es la de
+            proteger las células frente a las sustancias oxidantes. También
+            interviene en procesos de detoxificación del organismo, combatiendo
+            a patógenos tales como virus, bacterias y otros agentes nocivos.
+            También elimina radicales libres, los cuales afectan de forma
+            perjudicial a las células.
+          </p>
+        </div>
+      </div>
+
+      <!-- Beneficios -->
+      <div class="info-card" [class.animate-in]="isVisible()">
+        <div class="card-header">
+          <div class="header-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="card-title">Beneficios de este Suplemento</h3>
+        </div>
+
+        <div class="card-content">
+          <div class="benefit-item">
+            <h4 class="benefit-title">
+              Poder antioxidante y lucha contra los radicales libres
+            </h4>
+            <p class="card-text">
+              Como hemos indicado, ayuda en la síntesis de sustancias
+              antioxidantes como el glutatión, evitando así el envejecimiento
+              prematuro de las células. Cuando hay niveles satisfactorios de
+              glulatión en el organismo se liberan vitaminas como la A y la E,
+              las cuales actúan como sustancias protectoras frente a agentes
+              externos. Además, lucha contra los radicales libres, los cuales
+              están implicados en la muerte celular.
+            </p>
+          </div>
+
+          <div class="benefit-item">
+            <h4 class="benefit-title">Ayuda al sistema inmunológico</h4>
+            <p class="card-text">
+              El Immunocal contribuye en la producción de linfocitos, células
+              fundamentales en el funcionamiento del sistema inmunológico.
+              También ayuda en el incremento de la actividad de otras células de
+              gran importancia para el sistema inmune, como son los linfocitos
+              T, los neutrófilos y las células NK (natural killers), las cuales
+              están implicadas en los procesos infecciosos.
+            </p>
+          </div>
+
+          <div class="benefit-item">
+            <h4 class="benefit-title">Refuerza la actividad deportiva</h4>
+            <p class="card-text">
+              Este suplemento contribuye en la recuperación muscular tras la
+              realización de una actividad física de alto esfuerzo. El
+              desarrollo físico se da gracias a la acción de diferentes hormonas
+              y a una correcta síntesis de proteínas. Para poder formar masa
+              muscular el organismo requiere de unos niveles satisfactorios de
+              aminoácidos con los cuales se harán proteínas que constituirán los
+              músculos. Immunocal favorece en el desarrollo y mantenimiento de
+              la masa muscular gracias a que ofrece una gran variedad de
+              aminoácidos.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Elementos decorativos de fondo -->
+  <div class="bg-decoration-1"></div>
+  <div class="bg-decoration-2"></div>
+  <div class="bg-decoration-3"></div>
+</section>

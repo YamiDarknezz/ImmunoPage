@@ -1,0 +1,269 @@
+<section
+  id="ciencia-detras"
+  class="section-ciencia bg-white py-16 md:py-24 overflow-hidden"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Título principal -->
+    <div class="header-wrapper" [class.animate-in]="isVisible()">
+      <h2 class="section-title">
+        La ciencia detrás del
+        <span class="title-highlight">Immunocal</span>
+      </h2>
+      <div class="title-decoration">
+        <div class="decoration-line"></div>
+        <div class="decoration-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+            ></path>
+          </svg>
+        </div>
+        <div class="decoration-line"></div>
+      </div>
+    </div>
+
+    <!-- Grid principal: Científicos + Libros -->
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16">
+      <!-- Columna izquierda: Científicos -->
+      <div class="scientists-wrapper" [class.animate-in]="isVisible()">
+        <!-- Sección científicos principales -->
+        <div class="scientists-main">
+          <div class="scientists-images">
+            @for (scientist of mainScientists; track scientist.id; let i =
+            $index) {
+            <div
+              class="scientist-card"
+              [style.animation-delay]="i * 0.15 + 's'"
+              [class.animate-in]="isVisible()"
+            >
+              <div class="scientist-image-wrapper">
+                <div class="image-decoration"></div>
+                <div class="image-glow"></div>
+
+                <div class="image-container">
+                  <img
+                    [src]="scientist.image"
+                    [alt]="scientist.name"
+                    class="scientist-image"
+                    [class.loaded]="imageLoaded()[i]"
+                    (load)="onImageLoad(i)"
+                  />
+
+                  @if (!imageLoaded()[i]) {
+                  <div class="image-skeleton"></div>
+                  }
+                </div>
+
+                <!-- Badge de científico -->
+                <div class="scientist-badge">
+                  <svg
+                    class="badge-icon"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                    ></path>
+                  </svg>
+                  <span>Investigador</span>
+                </div>
+              </div>
+            </div>
+            }
+          </div>
+
+          <div class="scientists-info">
+            <div class="info-icon">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+                ></path>
+              </svg>
+            </div>
+            <p class="info-text">
+              A finales de los años 70 el trabajo de los Doctores Gustavo
+              Bounous y Patricia Kongshavn llevaron al descubrimiento de un
+              aislado de suero lácteo.
+            </p>
+            <div class="info-stats">
+              <div class="stat-item">
+                <span class="stat-number">42</span>
+                <span class="stat-label">años de investigación</span>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-item">
+                <span class="stat-number">401</span>
+                <span class="stat-label">artículos escritos</span>
+              </div>
+            </div>
+            <p class="info-text secondary">
+              Su investigación condujo a grandes avances en los terrenos de la
+              comprensión del sistema inmunológico.
+            </p>
+          </div>
+        </div>
+
+        <!-- Sección científico asesor -->
+        <div class="advisor-section">
+          <div class="advisor-card" [class.animate-in]="isVisible()">
+            <div class="advisor-image-wrapper">
+              <div class="image-decoration secondary"></div>
+              <div class="image-glow"></div>
+
+              <div class="image-container">
+                <img
+                  [src]="advisor.image"
+                  [alt]="advisor.name"
+                  class="scientist-image"
+                  [class.loaded]="imageLoaded()[2]"
+                  (load)="onImageLoad(2)"
+                />
+
+                @if (!imageLoaded()[2]) {
+                <div class="image-skeleton"></div>
+                }
+              </div>
+
+              <!-- Badge especial -->
+              <div class="advisor-badge">
+                <svg
+                  class="badge-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                  ></path>
+                </svg>
+                <span>Asesor Principal</span>
+              </div>
+            </div>
+
+            <div class="advisor-info">
+              <h3 class="advisor-title">{{ advisor.title }}</h3>
+              <p class="advisor-text">{{ advisor.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna derecha: Libros -->
+      <div class="books-wrapper" [class.animate-in]="isVisible()">
+        <div class="books-card">
+          <div class="books-image-wrapper">
+            <div class="image-decoration books"></div>
+            <div class="image-glow books"></div>
+
+            <div class="image-container books">
+              <img
+                src="/img/books.png"
+                alt="Libros de Referencia Médica"
+                class="books-image"
+                [class.loaded]="imageLoaded()[3]"
+                (load)="onImageLoad(3)"
+              />
+
+              @if (!imageLoaded()[3]) {
+              <div class="image-skeleton"></div>
+              }
+
+              <!-- Efecto de brillo -->
+              <div class="shine-effect"></div>
+            </div>
+
+            <!-- Badges de certificación -->
+            <div class="certification-badges">
+              <div class="cert-badge">
+                <span class="cert-text">PDR</span>
+              </div>
+              <div class="cert-badge">
+                <span class="cert-text">CPS</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="books-info">
+            <div class="info-header">
+              <div class="header-icon books">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  ></path>
+                </svg>
+              </div>
+              <div class="years-badge">
+                <span class="years-number">19</span>
+                <span class="years-text">años</span>
+              </div>
+            </div>
+
+            <h3 class="books-title">PDR y CPS</h3>
+            <p class="books-subtitle">
+              Libros de Referencia Médica y Farmacéutica en EEUU y Canadá
+            </p>
+
+            <div class="books-description">
+              <div class="description-icon">
+                <svg fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <p class="description-text">
+                El <strong>Physicians’ Desk Reference (PDR)</strong> es uno de
+                los manuales médicos más reconocidos en Estados Unidos. Reúne
+                información detallada sobre medicamentos, suplementos y
+                tratamientos aprobados, sirviendo como una herramienta esencial
+                para médicos, farmacéuticos y profesionales de la salud. En
+                Canadá, el
+                <strong
+                  >Compendium of Pharmaceuticals and Specialties (CPS)</strong
+                >
+                cumple la misma función, brindando datos confiables sobre
+                productos farmacéuticos y guías de uso terapéutico. Ambos textos
+                son considerados pilares en la práctica médica moderna por su
+                precisión y prestigio internacional.
+              </p>
+            </div>
+
+            <!-- Decoración de estrellas -->
+            <div class="stars-decoration">
+              @for (star of [1,2,3,4,5]; track star) {
+              <svg class="star-icon" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                ></path>
+              </svg>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Elementos decorativos de fondo -->
+  <div class="bg-decoration-1"></div>
+  <div class="bg-decoration-2"></div>
+  <div class="bg-pattern"></div>
+</section>
