@@ -1,0 +1,320 @@
+:host {
+  display: block;
+}
+
+// Variables
+$footer-dark: #010e4a;
+$footer-darker: #000a2e;
+$accent-green: #4ade80;
+$text-light: rgba(255, 255, 255, 0.9);
+$text-muted: rgba(255, 255, 255, 0.6);
+
+// ===== FOOTER PRINCIPAL =====
+
+.footer {
+  position: relative;
+  background: linear-gradient(135deg, $footer-darker 0%, $footer-dark 100%);
+  color: white;
+  padding: 3rem 0;
+  margin-top: auto;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+  @media (max-width: 768px) {
+    padding: 2rem 0;
+  }
+}
+
+// Contenedor principal
+.footer-content {
+  max-width: 7xl;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.footer-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease-out;
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    gap: 0.75rem;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+// ===== BRAND/LOGO =====
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  animation: slideInLeft 0.6s ease-out;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  .logo-icon {
+    width: 28px;
+    height: 28px;
+    color: $accent-green;
+    transition: all 0.3s ease;
+    animation: pulse-icon 2s ease-in-out infinite;
+  }
+
+  .brand-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    background: linear-gradient(90deg, $accent-green, #22c55e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+@keyframes pulse-icon {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ===== SEPARADORES =====
+
+.divider {
+  width: 1px;
+  height: 30px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  animation: fadeInUp 0.8s ease-out 0.1s backwards;
+
+  @media (max-width: 640px) {
+    display: none;
+  }
+}
+
+// ===== TEXTO PRINCIPAL =====
+
+.footer-text {
+  animation: fadeInUp 0.8s ease-out 0.2s backwards;
+
+  p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: $text-light;
+    letter-spacing: 0.025em;
+    font-weight: 500;
+
+    @media (max-width: 768px) {
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 640px) {
+      font-size: 0.8125rem;
+    }
+  }
+}
+
+// ===== CRÉDITO DEL DESARROLLADOR =====
+
+.footer-credit {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: fadeInUp 0.8s ease-out 0.3s backwards;
+
+  .credit-text {
+    font-size: 0.9rem;
+    color: $text-muted;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+}
+
+// Link de GitHub
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba($accent-green, 0.1);
+  border: 1.5px solid rgba($accent-green, 0.3);
+  border-radius: 20px;
+  color: $accent-green;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.025em;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba($accent-green, 0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba($accent-green, 0.3),
+      transparent
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+
+  &:hover {
+    background: rgba($accent-green, 0.15);
+    border-color: rgba($accent-green, 0.6);
+    box-shadow: 0 8px 20px rgba($accent-green, 0.15);
+    transform: translateY(-2px);
+
+    &::before {
+      opacity: 1;
+    }
+
+    &::after {
+      opacity: 1;
+    }
+
+    .github-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  .github-icon {
+    width: 16px;
+    height: 16px;
+    transition: all 0.3s ease;
+  }
+
+  @media (max-width: 640px) {
+    padding: 0.4rem 0.875rem;
+    font-size: 0.8125rem;
+
+    .github-icon {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+// ===== DECORACIÓN DE FONDO =====
+
+.footer-glow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 200px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba($accent-green, 0.1),
+    transparent
+  );
+  filter: blur(80px);
+  pointer-events: none;
+  animation: glow-pulse 6s ease-in-out infinite;
+
+  @media (max-width: 768px) {
+    width: 400px;
+    height: 150px;
+  }
+
+  @media (max-width: 640px) {
+    display: none;
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateX(-50%) scale(1.1);
+  }
+}
+
+// ===== ACCESIBILIDAD =====
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// ===== DARK MODE COMPATIBLE =====
+
+@media (prefers-color-scheme: dark) {
+  .github-link {
+    &:hover {
+      background: rgba($accent-green, 0.2);
+      border-color: rgba($accent-green, 0.5);
+    }
+  }
+}
