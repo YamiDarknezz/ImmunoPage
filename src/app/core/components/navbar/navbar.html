@@ -1,0 +1,91 @@
+<nav
+  class="fixed top-0 left-0 w-full z-50 transition-all duration-300"
+  [class.nav-scrolled]="scrolled()"
+  [class.nav-default]="!scrolled()"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo -->
+      <div class="flex-shrink-0 logo-container">
+        <img
+          src="/img/logo.png"
+          alt="Immunotec Logo"
+          class="h-12 w-auto transition-transform duration-300 hover:scale-105"
+        />
+      </div>
+
+      <!-- Menu Desktop -->
+      <ul class="hidden lg:flex items-center space-x-1">
+        @for (item of menuItems; track item.id) {
+        <li>
+          <a
+            [href]="item.href"
+            (click)="navigateTo($event, item.href)"
+            class="nav-link px-4 py-2 rounded-lg text-white text-sm font-semibold uppercase tracking-wide transition-all duration-300 hover:bg-white/10 hover:text-white relative overflow-hidden group"
+          >
+            <span class="relative z-10">{{ item.label }}</span>
+            <span class="nav-link-bg"></span>
+          </a>
+        </li>
+        }
+      </ul>
+
+      <!-- Botón móvil hamburguesa -->
+      <button
+        (click)="toggleMenu()"
+        class="lg:hidden relative w-10 h-10 text-white focus:outline-none focus:ring-2 focus:ring-white/50 rounded-lg transition-all duration-300 hover:bg-white/10"
+        [attr.aria-label]="menuAbierto() ? 'Cerrar menú' : 'Abrir menú'"
+        [attr.aria-expanded]="menuAbierto()"
+      >
+        <div class="hamburger-lines">
+          <span class="hamburger-line" [class.open]="menuAbierto()"></span>
+          <span class="hamburger-line" [class.open]="menuAbierto()"></span>
+          <span class="hamburger-line" [class.open]="menuAbierto()"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Overlay para cerrar menú al hacer click fuera -->
+  @if (menuAbierto()) {
+  <div class="mobile-overlay" (click)="closeMenu()"></div>
+  }
+
+  <!-- Menu Móvil -->
+  @if (menuAbierto()) {
+  <div class="mobile-menu">
+    <div class="mobile-menu-content">
+      <div class="px-6 py-6 space-y-2">
+        @for (item of menuItems; track item.id; let i = $index) {
+        <a
+          [href]="item.href"
+          (click)="navigateTo($event, item.href)"
+          class="mobile-menu-item"
+          [style.animation-delay]="i * 0.05 + 's'"
+        >
+          <span class="mobile-menu-item-text">{{ item.label }}</span>
+          <svg
+            class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        </a>
+        }
+      </div>
+
+      <!-- Decoración adicional del menú móvil -->
+      <div class="px-6 py-4 border-t border-white/10">
+        <p class="text-white/60 text-xs text-center">Immunotec © 2025</p>
+      </div>
+    </div>
+  </div>
+  }
+</nav>
