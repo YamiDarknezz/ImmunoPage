@@ -1,0 +1,40 @@
+// Estilos globales para scroll suave
+:host {
+  display: block;
+  width: 100%;
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+// Animaciones personalizadas
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+  }
+}
+
+main {
+  padding-top: 80px;
+
+  @media (max-width: 640px) {
+    padding-top: 72px;
+  }
+}
