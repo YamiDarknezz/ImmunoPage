@@ -69,7 +69,10 @@
             }
           },
           "defaultConfiguration": "development",
-          "options": {}
+          "options": {
+            "host": "0.0.0.0",
+            "allowedHosts": ["inmuno.darkhub.lat"]
+          }
         },
         "extract-i18n": {
           "builder": "@ngx-env/builder:extract-i18n",

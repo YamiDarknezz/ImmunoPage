@@ -11,6 +11,6 @@ export class Footer {
   protected currentYear = new Date().getFullYear();
 
   protected openGitHub() {
-    window.open('https://github.com/YamiDarknezzv', '_blank');
+    window.open('https://github.com/YamiDarknezz', '_blank');
   }
 }

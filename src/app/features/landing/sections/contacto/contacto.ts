@@ -15,12 +15,12 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-contacto',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './contacto.html',
   styleUrl: './contacto.scss',
 })
