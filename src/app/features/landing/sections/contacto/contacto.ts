@@ -18,6 +18,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
 
+declare const grecaptcha: any;
 @Component({
   selector: 'app-contacto',
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
@@ -29,7 +30,7 @@ export class Contacto implements OnInit, OnDestroy {
 
   // Variables de entorno
   private readonly CLIENTE_ID =
-    _NGX_ENV_['NG_APP_CLIENTE'] || 'cliente-default';
+    _NGX_ENV_['NG_APP_CLIENTE_ID'] || 'cliente-default';
   private readonly N8N_WEBHOOK_URL =
     _NGX_ENV_['NG_APP_N8N_WEBHOOK'] ||
     'https://n8n.darkhub.lat/webhook/contacto';
@@ -136,6 +137,18 @@ export class Contacto implements OnInit, OnDestroy {
     this.isLoading.set(true);
 
     try {
+      // Ejecutar reCAPTCHA v3
+      const token = await new Promise<string>((resolve, reject) => {
+        grecaptcha.ready(() => {
+          grecaptcha
+            .execute('6Lcem-krAAAAANI6tJY0lO8k1w5AKx5uurijaDWi', {
+              action: 'contacto',
+            })
+            .then(resolve)
+            .catch(reject);
+        });
+      });
+
       const formData = {
         nombre: this.contactForm.get('nombre')?.value.trim(),
         correo: this.contactForm.get('correo')?.value.trim(),
@@ -146,6 +159,7 @@ export class Contacto implements OnInit, OnDestroy {
         cliente: this.CLIENTE_ID,
         fechaContacto: new Date().toISOString(),
         fuente: 'landing-page-contacto',
+        recaptcha: token,
       };
 
       // Intentar enviar a N8N
@@ -178,13 +192,17 @@ export class Contacto implements OnInit, OnDestroy {
   private sendViaWebhook(data: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.post(this.N8N_WEBHOOK_URL, data).subscribe({
-        next: (response) => {
-          resolve(response);
-        },
+        next: (response) => resolve(response),
         error: (error) => {
           console.error('Error N8N:', error);
-          // Si falla N8N, intentar con simulación local
-          this.sendViaEmailService(data).then(resolve).catch(reject);
+
+          // Solo usar fallback si es un error del servidor (500 o sin conexión)
+          if (!error.status || error.status >= 500) {
+            this.sendViaEmailService(data).then(resolve).catch(reject);
+          } else {
+            // Si es un error lógico (400, 401, 403, 422...), rechazamos
+            reject(error);
+          }
         },
       });
     });
