@@ -1,25 +1,73 @@
-<section class="hero-video-section">
-  <!-- 🖼 Imagen de respaldo (visible hasta que el iframe se carga) -->
-  <img
-    src="/img/video-logo.jpg"
-    alt="Fondo Inmunocal"
-    class="hero-video-content"
-  />
+<section class="hero-video-wrapper">
+  <!-- 🔹 Botón de audio ANTES del contenedor con clip-path -->
+  <button
+    (click)="toggleAudio()"
+    class="audio-toggle-btn"
+    [title]="isMuted ? 'Activar audio' : 'Silenciar audio'"
+  >
+    @if (isMuted) {
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+      />
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"
+      />
+    </svg>
+    } @else {
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+      />
+    </svg>
+    }
+  </button>
 
-  <!-- 🎬 Video de fondo -->
-  <iframe
-    class="hero-video-content"
-    src="https://www.youtube.com/embed/-YPTcxgnJBY?autoplay=1&mute=1&loop=1&playlist=-YPTcxgnJBY&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1"
-    title="Video de fondo"
-    frameborder="0"
-    allow="autoplay; encrypted-media"
-  ></iframe>
+  <div class="hero-video-section">
+    <!-- Imagen de respaldo -->
+    <img
+      src="/img/video-logo.jpg"
+      alt="Fondo Inmunocal"
+      class="hero-video-content"
+    />
 
-  <!-- 🟦 Degradado inferior -->
-  <div class="hero-video-gradient"></div>
+    <!-- 🎬 Video de fondo -->
+    <iframe
+      #videoIframe
+      class="hero-video-content"
+      src="https://www.youtube.com/embed/-YPTcxgnJBY?autoplay=1&mute=1&loop=1&playlist=-YPTcxgnJBY&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1"
+      title="Video de fondo"
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+    ></iframe>
 
-  <!-- 🔹 Contenido (overlay) -->
-  <div class="hero-video-content-overlay">
-    <span></span>
+    <!-- Degradado inferior -->
+    <div class="hero-video-gradient"></div>
+
+    <!-- Overlay contenido -->
+    <div class="hero-video-content-overlay">
+      <span></span>
+    </div>
   </div>
 </section>

@@ -16,8 +16,36 @@ $hero-video-bottom-clip-mobile: 0%;
 $hero-video-top-clip-small: 0%;
 $hero-video-bottom-clip-small: 0%;
 
-// ===== SECCIÓN HERO VIDEO =====
+// ===== VARIABLES PARA POSICIÓN DEL BOTÓN =====
 
+// Desktop (1920px+)
+$audio-btn-bottom-desktop: 10rem;
+$audio-btn-left-desktop: 2rem;
+
+// Laptop/Tablet grande (1025px - 1919px)
+$audio-btn-bottom-laptop: 8rem;
+$audio-btn-left-laptop: 1.75rem;
+
+// Tablet (768px - 1024px)
+$audio-btn-bottom-tablet: 4rem;
+$audio-btn-left-tablet: 1.5rem;
+
+// Móvil (640px - 767px)
+$audio-btn-bottom-mobile: 1.25rem;
+$audio-btn-left-mobile: 1.25rem;
+
+// Móvil pequeño (< 640px)
+$audio-btn-bottom-small: 1rem;
+$audio-btn-left-small: 1rem;
+
+// ===== WRAPPER SIN CLIP-PATH =====
+.hero-video-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: visible; // ✅ Permite que el botón se salga
+}
+
+// ===== SECCIÓN HERO VIDEO =====
 .hero-video-section {
   position: relative;
   width: 100%;
@@ -77,7 +105,6 @@ $hero-video-bottom-clip-small: 0%;
   // ===== MEDIA QUERIES =====
 
   @media (max-width: 1024px) {
-    // ✅ Compensación para Tablet
     margin-top: -$hero-video-top-clip-tablet;
     margin-bottom: -$hero-video-bottom-clip-tablet;
 
@@ -96,7 +123,6 @@ $hero-video-bottom-clip-small: 0%;
   }
 
   @media (max-width: 767px) {
-    // ✅ Compensación para Móvil
     margin-top: -$hero-video-top-clip-mobile;
     margin-bottom: -$hero-video-bottom-clip-mobile;
 
@@ -115,7 +141,6 @@ $hero-video-bottom-clip-small: 0%;
   }
 
   @media (max-width: 640px) {
-    // ✅ Compensación para Móvil pequeño
     margin-top: -$hero-video-top-clip-small;
     margin-bottom: -$hero-video-bottom-clip-small;
 
@@ -134,6 +159,69 @@ $hero-video-bottom-clip-small: 0%;
 
     .hero-video-content-overlay {
       font-size: 1.875rem;
+    }
+  }
+}
+
+// ===== BOTÓN DE AUDIO =====
+.audio-toggle-btn {
+  position: absolute;
+  bottom: $audio-btn-bottom-desktop;
+  left: $audio-btn-left-desktop;
+  z-index: 100;
+  padding: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 9999px;
+  color: white;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  svg {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  // Laptop/Tablet grande
+  @media (max-width: 1919px) {
+    bottom: $audio-btn-bottom-laptop;
+    left: $audio-btn-left-laptop;
+  }
+
+  // Tablet
+  @media (max-width: 1024px) {
+    bottom: $audio-btn-bottom-tablet;
+    left: $audio-btn-left-tablet;
+  }
+
+  // Móvil
+  @media (max-width: 767px) {
+    bottom: $audio-btn-bottom-mobile;
+    left: $audio-btn-left-mobile;
+  }
+
+  // Móvil pequeño
+  @media (max-width: 640px) {
+    bottom: $audio-btn-bottom-small;
+    left: $audio-btn-left-small;
+    padding: 0.5rem;
+
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
     }
   }
 }
